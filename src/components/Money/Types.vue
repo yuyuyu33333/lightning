@@ -14,6 +14,7 @@ import {Component} from 'vue-property-decorator';
 @Component
 export default class Types extends Vue {
   type = '-';  // '-'减号表示支出，‘+’加号表示收入
+
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   selectType(type: string) {  //type 只能是减号和加号中的一个
     if (type !== '-' && type !== '+') {
@@ -23,22 +24,6 @@ export default class Types extends Vue {
   }
 }
 
-// export default {
-//   name: 'Types',
-//   data(){
-//     return{
-//       type:'-'
-//     }
-//   },
-//   methods:{
-//     selectType(type){  //type 只能是减号和加号中的一个
-//       if(type !== '-' && type!=='+' ){
-//         throw new Error('type is unknow')
-//       }
-//       this.type = type
-//     }
-//   }
-// };
 </script>
 
 <style lang="scss" scoped>
