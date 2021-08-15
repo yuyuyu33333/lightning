@@ -1,20 +1,33 @@
 <template>
 
     <ul class="types">
-      <li class="selected">支出</li>
-      <li>收入</li>
+      <li :class="type === '-' && 'selected'" @click="selectType('-')">支出</li>
+      <li :class= "type === '+' && 'selected'" @click="selectType('+')">收入</li>
     </ul>
 
 </template>
 
-<script lang="ts">
+<script >
 export default {
-  name: 'Types'
+  name: 'Types',
+  data(){
+    return{
+      type:'-'  // '-'减号表示支出，‘+’加号表示收入
+    }
+  },
+  methods:{
+    selectType(type){  //type 只能是减号和加号中的一个
+      if(type !== '-' && type!=='+' ){
+        throw new Error('type is unknow')
+      }
+      this.type = type
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/style/helper.scss";
+
 .types {
   background: #f1f1f1;
   display: flex;
@@ -30,7 +43,7 @@ export default {
     position: relative;
 
     &.selected {
-      background: $yellow1;
+     background: #fff763;
 
       &::after {
         content: '';
