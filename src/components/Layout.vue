@@ -1,11 +1,10 @@
 <template>
   <div class="nav-wrapper">
-  <div class="content">
-  <slot/>
-
+    <div class="content">
+      <slot/>
+    </div>
+    <Nav/>
   </div>
-  <Nav/>
-</div>
 </template>
 
 <script lang="ts">
@@ -19,10 +18,11 @@ export default {
   border: 1px solid green;
   display: flex;
   flex-direction: column;
-  height:100vh;
+  height: 100vh;
 }
+
 .content {
-  overflow:auto;
+  overflow: auto;
   flex-grow: 1
 }
 </style>
