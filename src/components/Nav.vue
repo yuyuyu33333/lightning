@@ -28,8 +28,8 @@ export default {
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
 nav {
+  @extend %outerShadow;
   display: flex;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
   font-size: 10px;
 
   > .item {
@@ -43,12 +43,11 @@ nav {
     .icon {
       width: 32px;
       height: 32px;
-
     }
   }
 
   > .item.selected {
-    background: $background;
+    background: $yellow;
     color: $color;
   }
 }
