@@ -63,6 +63,7 @@ export default class NumberPad extends Vue {
   ok() {
     this.$emit('update:value',this.output)
     this.$emit('submit',this.output)
+    this.output = '0'
   }
 }
 </script>
@@ -93,7 +94,7 @@ export default class NumberPad extends Vue {
       float: left;
 
       &.ok {
-        height: 50*2px;
+        height: 64*2px;
         float: right;
       }
 
