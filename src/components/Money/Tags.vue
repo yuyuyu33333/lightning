@@ -1,84 +1,91 @@
 <template>
   <div class="tags">
-    <ul class="current">
-      <router-link to="/clothes" class="item" active-class="selected">
-        <Icon name="clothes"/>
-        服饰
-      </router-link>
-      <router-link to="/food" class="item" active-class="selected">
-        <Icon name="food"/>
-        餐饮
-      </router-link>
-      <router-link to="/dwell" class="item" active-class="selected">
-        <Icon name="dwell"/>
-        住房
-      </router-link>
-      <router-link to="/traffic" class="item" active-class="selected">
-        <Icon name="traffic"/>
-        交通
-      </router-link>
-      <router-link to="/medical" class="item" active-class="selected">
-        <Icon name="medical"/>
-        医疗
-      </router-link>
-      <router-link to="/daily" class="item" active-class="selected">
-        <Icon name="daily"/>
-        日用
-      </router-link>
-    </ul>
     <div class="new">
-      <button>新增标签</button>
+      <button @click="create">新增标签</button>
     </div>
+    <ul class="current">
+      <li v-for="tag in dataSource" :key="tag"
+          :class="{selected:selectedTags.indexOf(tag)>=0}"
+          @click="toggle(tag)">{{ tag }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'Tags'
-};
+import Vue from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
+
+@Component
+export default class Tags extends Vue {
+  @Prop() readonly dataSource: string | undefined;
+  selectedTags: string[] = [];
+
+  toggle(tag: string) {
+    const index = this.selectedTags.indexOf(tag);
+    if (index >= 0) {
+      this.selectedTags.splice(index, 1);
+    } else {
+      this.selectedTags.push(tag);
+    }
+    this.$emit('update:value',this.selectedTags)
+  }
+  create(){
+      const name =window.prompt('请输入标签名')
+      if(name===''){
+        window.alert('标签名不能为空')
+      }else if(this.dataSource){
+        this.$emit('update:value',
+            [...this.dataSource,name])
+      }
+
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
+
 .tags {
   font-size: 14px;
-  padding: 20px 14px;
+  padding: 16px;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column-reverse;
 
   > .current {
     display: flex;
     flex-wrap: wrap;
-    font-size: 10px;
-    border: 1px solid red;
 
-    > .item {
-      padding: 4px 0;
-      width: 20%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+    > li {
+      background: #e3e3e3;
+      $h: 24px;
+      height: $h;
+      line-height: $h;
+      border-radius: $h/2;
+      padding: 0 16px;
+      margin-right: 12px;
+      margin-top: 4px;
 
-      .icon {
-        border-radius: 12%;
-        background: $grey;
-        width: 30px;
-        height: 30px;
+      &.selected {
+        background: #fff763;
+        color: $color;
       }
     }
   }
 
   > .new {
-    padding: 0 20px;
+    padding-top: 16px;
 
     button {
       background: transparent;
       border: none;
       color: #999;
       border-bottom: 1px solid;
-      padding-top: 4px;
-
+      padding: 0 4px;
     }
   }
 }
+
+
 </style>

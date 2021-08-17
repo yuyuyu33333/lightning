@@ -1,26 +1,26 @@
 <template>
 
   <ul class="types">
-    <li :class="type === '-' && 'selected'" @click="selectType('-')">支出</li>
-    <li :class="type === '+' && 'selected'" @click="selectType('+')">收入</li>
+    <li :class="value  === '-' && 'selected'" @click="selectType('-')">支出</li>
+    <li :class="value === '+' && 'selected'" @click="selectType('+')">收入</li>
   </ul>
 
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component,Prop} from 'vue-property-decorator';
 
 @Component
 export default class Types extends Vue {
-  type = '-';  // '-'减号表示支出，‘+’加号表示收入
-
+   @Prop({default:'-'}) readonly value!:string
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   selectType(type: string) {  //type 只能是减号和加号中的一个
     if (type !== '-' && type !== '+') {
       throw new Error('type is unknown');
     }
-    this.type = type;
+
+    this.$emit('update:value',type)
   }
 }
 

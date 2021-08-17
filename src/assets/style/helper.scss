@@ -10,6 +10,14 @@ $yellow1:#fff763;
 $color:rgba(0, 61, 98, 0.73);
 $grey: #f6f6f6;
 
+%clearFix {
+  &::after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+};
+
 $color-shadow:rgba(0, 0, 0, 0.2);
 %outerShadow {
   box-shadow: 0 0 3px $color-shadow
