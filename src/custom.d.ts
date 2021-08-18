@@ -5,3 +5,4 @@ type RecordItem ={
    amount:number //数据类型
    createAT?:Date   //  类  /构造函数
 }
+
