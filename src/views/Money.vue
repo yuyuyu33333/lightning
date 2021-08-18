@@ -1,12 +1,16 @@
 <template>
   <Layout class-prefix="layout">
-    {{recordList}}
-    <NumberPad :value.sync ="record.amount"  @submit="saveRecord"/>
-    <Types :value.sync = "record.type" />
-<!--    <Types :value = "record.type" @update:value="onUpdateType"/>-->
-    <Notes fieldName="备注"
-           placeholde="在这里输入备注"
-           @update:value="onUpdateNotes"/>
+    {{ recordList }}
+    <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
+    <Types :value.sync="record.type"/>
+    <!--    <Types :value = "record.type" @update:value="onUpdateType"/>-->
+    <div class="notes">
+      <FormItem fieldName="备注"
+                placeholder="在这里输入备注"
+                @update:value="onUpdateNotes"/>
+    </div>
+
+
     <Tags :dataSource.sync="tags" @update:value="onUpdateTags"/>
   </Layout>
 </template>
@@ -15,44 +19,44 @@
 import Vue from 'vue';
 import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
-import Notes from '@/components/Money/Notes.vue';
+import FormItem from '@/components/Money/FormItem.vue';
 import Tags from '@/components/Money/Tags.vue';
-import {Component,Watch} from 'vue-property-decorator';
-import recordListModel from '@/models/recordListModel.ts'
+import {Component, Watch} from 'vue-property-decorator';
+import recordListModel from '@/models/recordListModel.ts';
 import tagListModel from '@/models/tagListModel';
 
-const recordList = recordListModel.fetch()
-const tagList = tagListModel.fetch()
+const recordList = recordListModel.fetch();
+const tagList = tagListModel.fetch();
 
 @Component({
-  components: {Tags, Notes, Types, NumberPad},
+  components: {Tags, FormItem, Types, NumberPad},
 })
 
 export default class Money extends Vue {
 
   //tags =['服饰', '餐饮', '住房', '交通', '医疗', '日用']
   tags = tagList;
-  recordList=recordList
+  recordList = recordList;
   // eslint-disable-next-line no-undef
-  record:RecordItem={
-    tags:[],notes:'',type:'-',amount:0
-  }    // 复杂类型，声明默认值
+  record: RecordItem = {
+    tags: [], notes: '', type: '-', amount: 0
+  };    // 复杂类型，声明默认值
 
 
-  onUpdateTags(value:string[]){
-    this.record.tags = value
+  onUpdateTags(value: string[]) {
+    this.record.tags = value;
   }
-  onUpdateNotes(value:string){
-    this.record.notes =value
+  onUpdateNotes(value: string) {
+    this.record.notes = value;
   }
-  saveRecord(){
-    const record2 = recordListModel.clone(this.record)
-    record2.createAT=new Date()
-    this.recordList.push(record2)
+  saveRecord() {
+    const record2 = recordListModel.clone(this.record);
+    record2.createAT = new Date();
+    this.recordList.push(record2);
   }
   @Watch('recordList')
-  onRecordListChange(){
-    recordListModel.save(this.recordList)
+  onRecordListChange() {
+    recordListModel.save(this.recordList);
   }
   // onUpdateType(value:string){
   //   this.record.type =value
@@ -69,5 +73,8 @@ export default class Money extends Vue {
   border: 1px solid red;
   display: flex;
   flex-direction: column-reverse;
+}
+.notes{
+  padding:12px 0;
 }
 </style>
