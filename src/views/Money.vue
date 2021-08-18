@@ -4,7 +4,9 @@
     <NumberPad :value.sync ="record.amount"  @submit="saveRecord"/>
     <Types :value.sync = "record.type" />
 <!--    <Types :value = "record.type" @update:value="onUpdateType"/>-->
-    <Notes @update:value="onUpdateNotes"/>
+    <Notes fieldName="备注"
+           placeholde="在这里输入备注"
+           @update:value="onUpdateNotes"/>
     <Tags :dataSource.sync="tags" @update:value="onUpdateTags"/>
   </Layout>
 </template>
