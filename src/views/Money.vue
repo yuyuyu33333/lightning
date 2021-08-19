@@ -1,6 +1,5 @@
 <template>
   <Layout class-prefix="layout">
-    {{ recordList }}
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
     <!--    <Types :value = "record.type" @update:value="onUpdateType"/>-->
@@ -70,7 +69,6 @@ export default class Money extends Vue {
 
 <style lang="scss">
 .layout-content {
-  border: 1px solid red;
   display: flex;
   flex-direction: column-reverse;
 }
