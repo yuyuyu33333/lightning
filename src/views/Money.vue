@@ -32,8 +32,6 @@ const recordList = recordListModel.fetch();
 })
 
 export default class Money extends Vue {
-
-  //tags =['服饰', '餐饮', '住房', '交通', '医疗', '日用']
   tags = window.tagList;
   recordList = recordList;
   // eslint-disable-next-line no-undef
